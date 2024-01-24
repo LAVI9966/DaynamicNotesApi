@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .maincon{
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .innercon{
+            height: 40vh;
+            width: 40%;
+            background-color: pink;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: height 2s ,width 2s;
+        }
+        .innercon:hover{
+            /* width: 40.1vh; */
+            height: 402px;
+        }
+        .datacon{
+            
+            height: 90%;
+            width: 90%;
+            background-color: purple;
+            display: flex;
+            padding: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: auto;
+            position: relative;
+        }
+        .author{
+            margin-top: 4px;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        .borders{
+            border: 2px solid black;
+            border-radius: 4px;
+        }
+        p{
+            font-weight:900;
+            font-size:2rem;
+        }
+        button{
+            width: 93.6%;
+            outline: none;
+            background-color: green;
+            border: 2px solid black;
+            border-radius: 5pxx;
+        }
+        button:hover{
+            background-color: rgb(22, 154, 22);
+        }
+    </style>
+</head>
+<body>
+    <div class="maincon">
+        <div class="innercon borders">
+            <div class="datacon borders" >
+                <p id="text">
+                    
+                </p>
+                <h1 class="author" id="author">
+                    
+                </h1>
+            </div>
+            <button onclick="getquotes()">New One</button>
+        </div>
+    </div>
+
+    <script>
+        const getquotes = async() =>{
+            const api = 'https://type.fit/api/quotes'
+            try{
+                let data = await fetch(api);
+                let realdata = await data.json();
+                // console.log(realdata);
+                var i = Math.round(Math.random());
+                var num = i * 10;
+                console.log(realdata[num]);
+                document.getElementById('text').innerHTML = realdata[num].text;
+                var auth = realdata[num].author;
+                const author = document.getElementById('author').innerHTML ='~ '+auth.slice(0,-10);
+            }catch(err){
+
+            }
+        }
+        getquotes()
+    </script>
+</body>
+</html>
